@@ -10,7 +10,7 @@ Or, in a `brew bundle` `Brewfile`:
 
 ```ruby
 tap "middlendian/tap"
-brew "<formula>"
+brew "middlendian/tap/<formula>"
 ```
 
 ## Documentation
