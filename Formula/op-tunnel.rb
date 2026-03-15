@@ -5,15 +5,15 @@
 class OpTunnel < Formula
   desc "Tunnel 1Password CLI (op) commands over SSH"
   homepage "https://github.com/middlendian/op-tunnel"
-  version "0.2.1"
+  version "0.2.2"
   license "MIT"
 
-  depends_on "1password-cli"
+  depends_on "1password-cli" => :cask
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/middlendian/op-tunnel/releases/download/v0.2.1/op-tunnel-0.2.1-darwin-amd64.tar.gz"
-      sha256 "2ffdef2bb1ebe38939afc0766c0d9d12c76e64dce51f044de61923641bf8f054"
+      url "https://github.com/middlendian/op-tunnel/releases/download/v0.2.2/op-tunnel-0.2.2-darwin-amd64.tar.gz"
+      sha256 "197d786a0ccd5f9642b4e47d4533b8b3e0e89b9c5ffcb3e9e3d84b54bf5e604a"
 
       define_method(:install) do
         bin.install "op-tunnel-server"
@@ -23,8 +23,8 @@ class OpTunnel < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/middlendian/op-tunnel/releases/download/v0.2.1/op-tunnel-0.2.1-darwin-arm64.tar.gz"
-      sha256 "fe7c60638d0d696d4af0b968e959621604327bf17fce0969170d774ea44fcd7f"
+      url "https://github.com/middlendian/op-tunnel/releases/download/v0.2.2/op-tunnel-0.2.2-darwin-arm64.tar.gz"
+      sha256 "2103d017b986799f6d63a72fe50c4fa6c084fc99a505caf3cd371c310eb1ab1a"
 
       define_method(:install) do
         bin.install "op-tunnel-server"
@@ -37,8 +37,8 @@ class OpTunnel < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/middlendian/op-tunnel/releases/download/v0.2.1/op-tunnel-0.2.1-linux-amd64.tar.gz"
-      sha256 "4280f463f5c984966ef48754f169e391ef98db98b4ec79744dab3c3bbd85cf4e"
+      url "https://github.com/middlendian/op-tunnel/releases/download/v0.2.2/op-tunnel-0.2.2-linux-amd64.tar.gz"
+      sha256 "6a4475952735041a46f802e95164f28bb6350d5567bd44140a82810bb8145598"
       define_method(:install) do
         bin.install "op-tunnel-server"
         bin.install "op-tunnel-client"
@@ -47,8 +47,8 @@ class OpTunnel < Formula
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/middlendian/op-tunnel/releases/download/v0.2.1/op-tunnel-0.2.1-linux-arm64.tar.gz"
-      sha256 "3d869ec5d29e1f88efe10403814f9157bc66ca60b7bb4c909423761e7b1ef82f"
+      url "https://github.com/middlendian/op-tunnel/releases/download/v0.2.2/op-tunnel-0.2.2-linux-arm64.tar.gz"
+      sha256 "c6a436ffea044a89e11348fa12abc4403ba3c421867622d75ed452e3d13b144e"
       define_method(:install) do
         bin.install "op-tunnel-server"
         bin.install "op-tunnel-client"
