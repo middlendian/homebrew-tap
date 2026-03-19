@@ -5,29 +5,33 @@
 class OpTunnel < Formula
   desc "Tunnel 1Password CLI (op) commands over SSH"
   homepage "https://github.com/middlendian/op-tunnel"
-  version "0.2.5"
+  version "0.3.0"
   license "GPL-3.0-only"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/middlendian/op-tunnel/releases/download/v0.2.5/op-tunnel-0.2.5-darwin-amd64.tar.gz"
-      sha256 "966f93a9bf12457c21960749b00b1e00896e64fa7d717031b8c0a48fae644a6c"
+      url "https://github.com/middlendian/op-tunnel/releases/download/v0.3.0/op-tunnel-0.3.0-darwin-amd64.tar.gz"
+      sha256 "60645e513f436e1dfd82903632df71194765aa20624cb06a92abca98f1236e13"
 
       define_method(:install) do
         bin.install "op-tunnel-server"
         bin.install "op-tunnel-client"
-        (share/"op-tunnel").install "dist/op-tunnel-sshd.conf", "dist/ssh.config"
+        bin.install "op-tunnel-doctor"
+        bin.install "op-tunnel-keepalive"
+        (share/"op-tunnel").install "dist/ssh.config.tmpl"
         bin.install "dist/op-tunnel-setup"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/middlendian/op-tunnel/releases/download/v0.2.5/op-tunnel-0.2.5-darwin-arm64.tar.gz"
-      sha256 "5aabdbf8b23a7b06d895566419f238c96e167cb3685aef87b8977f392f923d72"
+      url "https://github.com/middlendian/op-tunnel/releases/download/v0.3.0/op-tunnel-0.3.0-darwin-arm64.tar.gz"
+      sha256 "438f824060d77edc29794f06bb2d8a5776ed962b2d6f741748deb148a16188fa"
 
       define_method(:install) do
         bin.install "op-tunnel-server"
         bin.install "op-tunnel-client"
-        (share/"op-tunnel").install "dist/op-tunnel-sshd.conf", "dist/ssh.config"
+        bin.install "op-tunnel-doctor"
+        bin.install "op-tunnel-keepalive"
+        (share/"op-tunnel").install "dist/ssh.config.tmpl"
         bin.install "dist/op-tunnel-setup"
       end
     end
@@ -35,33 +39,40 @@ class OpTunnel < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/middlendian/op-tunnel/releases/download/v0.2.5/op-tunnel-0.2.5-linux-amd64.tar.gz"
-      sha256 "b4e8646e54510338887c2c5f309bc8eabf413da947ed8427420e4df4935a4d51"
+      url "https://github.com/middlendian/op-tunnel/releases/download/v0.3.0/op-tunnel-0.3.0-linux-amd64.tar.gz"
+      sha256 "29d12442d37ad97449a954824809f402ba43d654f5e526421c061c60c6f9d464"
       define_method(:install) do
         bin.install "op-tunnel-server"
         bin.install "op-tunnel-client"
-        (share/"op-tunnel").install "dist/op-tunnel-sshd.conf", "dist/ssh.config"
+        bin.install "op-tunnel-doctor"
+        bin.install "op-tunnel-keepalive"
+        (share/"op-tunnel").install "dist/ssh.config.tmpl"
         bin.install "dist/op-tunnel-setup"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/middlendian/op-tunnel/releases/download/v0.2.5/op-tunnel-0.2.5-linux-arm64.tar.gz"
-      sha256 "13d6e0b8d899c5c7713dd2c1acc76f4b789d9d72e64b1c5737bdba7c970dd243"
+      url "https://github.com/middlendian/op-tunnel/releases/download/v0.3.0/op-tunnel-0.3.0-linux-arm64.tar.gz"
+      sha256 "b22e8184dd322e935014a2d84bc6039c55c8e8f5a555dae61cb42cad13269bb8"
       define_method(:install) do
         bin.install "op-tunnel-server"
         bin.install "op-tunnel-client"
-        (share/"op-tunnel").install "dist/op-tunnel-sshd.conf", "dist/ssh.config"
+        bin.install "op-tunnel-doctor"
+        bin.install "op-tunnel-keepalive"
+        (share/"op-tunnel").install "dist/ssh.config.tmpl"
         bin.install "dist/op-tunnel-setup"
       end
     end
   end
 
+  def post_install
+    system bin/"op-tunnel-setup"
+  end
+
   def caveats
     <<~EOS
-      1Password CLI is required but must be installed separately:
-        brew install --cask 1password-cli
+      op-tunnel-setup has been run automatically.
 
-      Run op-tunnel-setup to complete configuration:
+      If you need to reconfigure, run:
         op-tunnel-setup
 
       See https://github.com/middlendian/op-tunnel for full instructions.
@@ -79,5 +90,7 @@ class OpTunnel < Formula
   test do
     assert_predicate bin/"op-tunnel-server", :executable?
     assert_predicate bin/"op-tunnel-client", :executable?
+    assert_predicate bin/"op-tunnel-doctor", :executable?
+    assert_predicate bin/"op-tunnel-keepalive", :executable?
   end
 end
