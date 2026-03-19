@@ -5,13 +5,13 @@
 class OpTunnel < Formula
   desc "Tunnel 1Password CLI (op) commands over SSH"
   homepage "https://github.com/middlendian/op-tunnel"
-  version "0.3.0"
+  version "0.3.1"
   license "GPL-3.0-only"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/middlendian/op-tunnel/releases/download/v0.3.0/op-tunnel-0.3.0-darwin-amd64.tar.gz"
-      sha256 "60645e513f436e1dfd82903632df71194765aa20624cb06a92abca98f1236e13"
+      url "https://github.com/middlendian/op-tunnel/releases/download/v0.3.1/op-tunnel-0.3.1-darwin-amd64.tar.gz"
+      sha256 "26db7c4da0981b49424ae2a9cd020b236843b44ac8dedd9a8d36683bea8308b6"
 
       define_method(:install) do
         bin.install "op-tunnel-server"
@@ -23,8 +23,8 @@ class OpTunnel < Formula
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/middlendian/op-tunnel/releases/download/v0.3.0/op-tunnel-0.3.0-darwin-arm64.tar.gz"
-      sha256 "438f824060d77edc29794f06bb2d8a5776ed962b2d6f741748deb148a16188fa"
+      url "https://github.com/middlendian/op-tunnel/releases/download/v0.3.1/op-tunnel-0.3.1-darwin-arm64.tar.gz"
+      sha256 "6eda9aa984e74dc32c8029811fae1b1053bc913ba84c646710a6a5da92cb3c16"
 
       define_method(:install) do
         bin.install "op-tunnel-server"
@@ -39,8 +39,8 @@ class OpTunnel < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/middlendian/op-tunnel/releases/download/v0.3.0/op-tunnel-0.3.0-linux-amd64.tar.gz"
-      sha256 "29d12442d37ad97449a954824809f402ba43d654f5e526421c061c60c6f9d464"
+      url "https://github.com/middlendian/op-tunnel/releases/download/v0.3.1/op-tunnel-0.3.1-linux-amd64.tar.gz"
+      sha256 "6bd305fab9d1c379eb6c7ad6b8372ee5b92aa3628de799dbd7fb4b37613f1f57"
       define_method(:install) do
         bin.install "op-tunnel-server"
         bin.install "op-tunnel-client"
@@ -51,8 +51,8 @@ class OpTunnel < Formula
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/middlendian/op-tunnel/releases/download/v0.3.0/op-tunnel-0.3.0-linux-arm64.tar.gz"
-      sha256 "b22e8184dd322e935014a2d84bc6039c55c8e8f5a555dae61cb42cad13269bb8"
+      url "https://github.com/middlendian/op-tunnel/releases/download/v0.3.1/op-tunnel-0.3.1-linux-arm64.tar.gz"
+      sha256 "c72d40cd980cd26e4ea83236a6bd4ba3b695ffc396e6a485159e8f04551b79f3"
       define_method(:install) do
         bin.install "op-tunnel-server"
         bin.install "op-tunnel-client"
@@ -65,6 +65,9 @@ class OpTunnel < Formula
   end
 
   def post_install
+    pw = Etc.getpwuid(Process.uid)
+    ENV["HOME"] = pw.dir
+    ENV["USER"] = pw.name
     system bin/"op-tunnel-setup"
   end
 
