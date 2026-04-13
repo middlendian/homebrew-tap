@@ -5,41 +5,41 @@
 class GhAppAuth < Formula
   desc "GitHub CLI extension for GitHub App authentication"
   homepage "https://github.com/middlendian/gh-app-auth"
-  version "0.1.0"
+  version "0.1.1"
   license "GPL-3.0-only"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/middlendian/gh-app-auth/releases/download/v0.1.0/gh-app-auth-0.1.0-darwin-amd64.tar.gz"
-      sha256 "6eef1856347117a4a78cd67ed91e7206ae32dbbee86a8a9374a80dcd1da138be"
+      url "https://github.com/middlendian/gh-app-auth/releases/download/v0.1.1/gh-app-auth-darwin-amd64"
+      sha256 "e61bd49bf6af29b17d7f2f9beaf7885a3ff3616f10cfee9bd3309d364ba2c9c5"
 
       define_method(:install) do
-        bin.install "gh-app-auth"
+        bin.install "gh-app-auth-darwin-amd64" => "gh-app-auth"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/middlendian/gh-app-auth/releases/download/v0.1.0/gh-app-auth-0.1.0-darwin-arm64.tar.gz"
-      sha256 "117fa9f57f2b109d76ff63fc5d12a3d5add0e9284e2ef83fdf0f601139b5a315"
+      url "https://github.com/middlendian/gh-app-auth/releases/download/v0.1.1/gh-app-auth-darwin-arm64"
+      sha256 "60d66b2a6940ba9c924cf703faa36972184294af9a2c492b0cd50b726926d25e"
 
       define_method(:install) do
-        bin.install "gh-app-auth"
+        bin.install "gh-app-auth-darwin-arm64" => "gh-app-auth"
       end
     end
   end
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/middlendian/gh-app-auth/releases/download/v0.1.0/gh-app-auth-0.1.0-linux-amd64.tar.gz"
-      sha256 "236f3ffa423f2ad6af403340587ac4f88138bc253f25156a754443c786440321"
+      url "https://github.com/middlendian/gh-app-auth/releases/download/v0.1.1/gh-app-auth-linux-amd64"
+      sha256 "5f6e8ede9cf53ea0ad1ad3fc3452d93e87cbaf421e0c50e7dae88dd8a4c039c0"
       define_method(:install) do
-        bin.install "gh-app-auth"
+        bin.install "gh-app-auth-linux-amd64" => "gh-app-auth"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/middlendian/gh-app-auth/releases/download/v0.1.0/gh-app-auth-0.1.0-linux-arm64.tar.gz"
-      sha256 "5d1dc0f01935a8b9e0ca316af25d47f898369e358516783fa7eb6b4acd03f759"
+      url "https://github.com/middlendian/gh-app-auth/releases/download/v0.1.1/gh-app-auth-linux-arm64"
+      sha256 "cf4f4dd7920070498bbee6934086f8e54a0500d097a9f9d17f63c5b27a3e04fe"
       define_method(:install) do
-        bin.install "gh-app-auth"
+        bin.install "gh-app-auth-linux-arm64" => "gh-app-auth"
       end
     end
   end
